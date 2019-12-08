@@ -37,6 +37,7 @@ int get_number_of_elements(list_t* pList) {
 /**************/
 /* Question 2 */
 
+void do_delete_element(l)
 
 
 
