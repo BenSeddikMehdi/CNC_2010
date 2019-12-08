@@ -5,6 +5,8 @@
 #ifndef CNC_2010_SECONDPROBLEM_H
 #define CNC_2010_SECONDPROBLEM_H
 
+#include <stdlib.h>
+
 typedef struct {
     int id;
     char clientName[20];
@@ -33,12 +35,48 @@ int get_number_of_elements(list_t* pList) {
     }
     return i;
 }
+/*
+list_t* do_create_linked_list(list_t* (*op) (list_t*), list_t* plist) {
+    return op(plist);
+}
+list_t* create_linked_list(list_t* plist) {
+    int numberOfElements = 0;
+    printf("Enter the number of elements : ");
+    scanf("%d", &numberOfElements);
+    for (int i = 0; i < numberOfElements; ++i) {
+        plist = malloc(sizeof(list_t));
+        printf("Enter the %d id: ", i);
+        scanf("%d", &plist->info.id);
+        printf("Enter the %d price: ", i);
+        scanf("%f", &plist->info.price);
+    }
+    return plist;
+}*/
 
 /**************/
 /* Question 2 */
-
-void do_delete_element(l)
-
+list_t* shift_element(list_t* plist) {
+    while (plist != NULL) {
+        plist->next = plist->next->next;
+        plist->next->info.id--;
+        plist = plist->next;
+    }
+    return plist;
+}
+list_t* do_delete_element(list_t* (*op) (list_t*, int), list_t* plist, int value) {
+    return op(plist, value);
+}
+list_t* delete_element(list_t* plist, int value) {
+    if (plist != NULL) {
+        while (plist != NULL) {
+            if (plist->info.id == value)
+                shift_element(plist);
+            else
+                plist = plist->next;
+        }
+    }
+    return plist;
+}
 
 
 
