@@ -10,17 +10,14 @@
 typedef struct {
     int id;
     char clientName[20];
-    float price;
+    double price;
     int deadline;
-}bell_t;
+} bell_t;
 
 typedef struct list {
     bell_t info;
     struct list *next;
-}list_t;
-
-const int currentYear = 2010;
-list_t *first_element;
+} list_t;
 
 /**************/
 /* Question 1 */
@@ -35,23 +32,25 @@ int get_number_of_elements(list_t* pList) {
     }
     return i;
 }
-/*
+
+list_t bellList_1 = {1, "first_bell", 11.11, 2001, NULL};
+list_t bellList_2 = {2, "second_bell", 22.22, 2002, NULL};
+list_t bellList_3 = {3, "third_bell", 33.33, 2003, NULL};
+list_t bellList_4 = {4, "fourth_bell", 44.44, 2004, NULL};
+list_t bellList_5 = {5, "fifth_bell", 55.55, 2005, NULL};
+
 list_t* do_create_linked_list(list_t* (*op) (list_t*), list_t* plist) {
     return op(plist);
 }
 list_t* create_linked_list(list_t* plist) {
-    int numberOfElements = 0;
-    printf("Enter the number of elements : ");
-    scanf("%d", &numberOfElements);
-    for (int i = 0; i < numberOfElements; ++i) {
-        plist = malloc(sizeof(list_t));
-        printf("Enter the %d id: ", i);
-        scanf("%d", &plist->info.id);
-        printf("Enter the %d price: ", i);
-        scanf("%f", &plist->info.price);
-    }
+    plist = &bellList_1;
+    bellList_1.next = &bellList_2;
+    bellList_2.next = &bellList_3;
+    bellList_3.next = &bellList_4;
+    bellList_4.next = &bellList_5;
+    bellList_5.next = NULL;
     return plist;
-}*/
+}
 
 /**************/
 /* Question 2 */
