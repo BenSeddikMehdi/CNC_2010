@@ -19,7 +19,7 @@ typedef struct list {
     struct list *next;
 } list_t;
 
-const int currentYear = 2004;
+const int currentYear = 2006;
 
 list_t bellList_1 = {1, "first_client", 11.50, 2001, NULL};
 list_t bellList_2 = {2, "second_client", 22.50, 2002, NULL};
@@ -104,17 +104,24 @@ list_t* do_bell_taxes(list_t* (*op) (list_t* ), list_t* plist) {
     return op(plist);
 }
 list_t* bell_taxes(list_t* plist) {
-    while (plist != NULL) {
+    if (plist != NULL) {
         if (plist->info.deadline < currentYear) {
             int num = currentYear - plist->info.deadline;
             for (int i = 0; i < num; ++i) {
                 plist->info.price += 0.10*plist->info.price;
             }
+            bell_taxes(plist->next);
         } else
-            plist = plist->next;
+            bell_taxes(plist->next);
     }
     return plist;
 }
-
+void printLinkedList(list_t* plist) {
+    while (plist != NULL) {
+        printf("Id = %d, Client = %s, Price = %.2f, deadLine = %d\n",
+                plist->info.id, plist->info.clientName, plist->info.price, plist->info.deadline);
+        plist = plist->next;
+    }
+}
 
 #endif //CNC_2010_SECONDPROBLEM_H
