@@ -4,6 +4,7 @@
 int main() {
     list_t* temp = NULL;
     temp = do_create_linked_list(create_linked_list, temp);
-    printf("%d", do_get_number_of_elements(get_number_of_elements, temp));
+    temp = do_delete_element(delete_element, temp, 3);
+    free(temp);
     return 0;
 }

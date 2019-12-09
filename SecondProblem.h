@@ -19,6 +19,12 @@ typedef struct list {
     struct list *next;
 } list_t;
 
+list_t bellList_1 = {1, "first_bell", 11.50, 2001, NULL};
+list_t bellList_2 = {2, "second_bell", 22.50, 2002, NULL};
+list_t bellList_3 = {3, "third_bell", 33.50, 2003, NULL};
+list_t bellList_4 = {4, "fourth_bell", 44.50, 2004, NULL};
+list_t bellList_5 = {5, "fifth_bell", 55.50, 2005, NULL};
+
 /**************/
 /* Question 1 */
 int do_get_number_of_elements(int (*op) (list_t*), list_t* pList) {
@@ -32,12 +38,6 @@ int get_number_of_elements(list_t* pList) {
     }
     return i;
 }
-
-list_t bellList_1 = {1, "first_bell", 11.11, 2001, NULL};
-list_t bellList_2 = {2, "second_bell", 22.22, 2002, NULL};
-list_t bellList_3 = {3, "third_bell", 33.33, 2003, NULL};
-list_t bellList_4 = {4, "fourth_bell", 44.44, 2004, NULL};
-list_t bellList_5 = {5, "fifth_bell", 55.55, 2005, NULL};
 
 list_t* do_create_linked_list(list_t* (*op) (list_t*), list_t* plist) {
     return op(plist);
@@ -55,10 +55,13 @@ list_t* create_linked_list(list_t* plist) {
 /**************/
 /* Question 2 */
 list_t* shift_element(list_t* plist) {
-    while (plist != NULL) {
-        plist->next = plist->next->next;
-        plist->next->info.id--;
+    while (plist != NULL && plist->next != NULL) {
         plist = plist->next;
+        plist->info.id--;
+        plist = plist->next;
+    }
+    if (plist != NULL) {
+        plist->info.id--;
     }
     return plist;
 }
@@ -66,15 +69,18 @@ list_t* do_delete_element(list_t* (*op) (list_t*, int), list_t* plist, int value
     return op(plist, value);
 }
 list_t* delete_element(list_t* plist, int value) {
+    list_t *(*temp) = &plist;
     if (plist != NULL) {
-        while (plist != NULL) {
-            if (plist->info.id == value)
-                shift_element(plist);
-            else
-                plist = plist->next;
+        if (plist->info.id == value)
+            return plist->next;
+        else {
+            plist->next = delete_element(plist->next, value);
+            plist = (*temp);
+            return plist;
         }
-    }
-    return plist;
+
+    } else
+        return NULL;
 }
 
 
