@@ -19,11 +19,13 @@ typedef struct list {
     struct list *next;
 } list_t;
 
-list_t bellList_1 = {1, "first_bell", 11.50, 2001, NULL};
-list_t bellList_2 = {2, "second_bell", 22.50, 2002, NULL};
-list_t bellList_3 = {3, "third_bell", 33.50, 2003, NULL};
-list_t bellList_4 = {4, "fourth_bell", 44.50, 2004, NULL};
-list_t bellList_5 = {5, "fifth_bell", 55.50, 2005, NULL};
+const int currentYear = 2004;
+
+list_t bellList_1 = {1, "first_client", 11.50, 2001, NULL};
+list_t bellList_2 = {2, "second_client", 22.50, 2002, NULL};
+list_t bellList_3 = {3, "third_client", 33.50, 2003, NULL};
+list_t bellList_4 = {4, "fourth_client", 44.50, 2004, NULL};
+list_t bellList_5 = {5, "fifth_client", 55.50, 2005, NULL};
 
 /**************/
 /* Question 1 */
@@ -79,6 +81,24 @@ list_t* delete_element(list_t* plist, int value) {
     } else
         return NULL;
 }
+
+/**************/
+/* Question 3 */
+int do_get_number(int (*op) (list_t* , int), list_t* plist, int number) {
+    return op(plist, number);
+}
+int get_number(list_t* plist, int number) {
+    while (plist != NULL) {
+        if (plist->info.deadline >= currentYear) {
+            return plist->info.deadline;
+        } else {
+            plist = plist->next;
+        }
+    }
+    return 0;
+}
+
+
 
 
 
