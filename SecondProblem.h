@@ -55,13 +55,10 @@ list_t* create_linked_list(list_t* plist) {
 /**************/
 /* Question 2 */
 list_t* shift_element(list_t* plist) {
-    while (plist != NULL && plist->next != NULL) {
-        plist = plist->next;
+    while (plist != NULL) {
+        //plist = plist->next;
         plist->info.id--;
         plist = plist->next;
-    }
-    if (plist != NULL) {
-        plist->info.id--;
     }
     return plist;
 }
@@ -69,13 +66,13 @@ list_t* do_delete_element(list_t* (*op) (list_t*, int), list_t* plist, int value
     return op(plist, value);
 }
 list_t* delete_element(list_t* plist, int value) {
-    list_t *(*temp) = &plist;
     if (plist != NULL) {
-        if (plist->info.id == value)
+        if (plist->info.id == value) {
+            shift_element(plist->next);
             return plist->next;
+        }
         else {
             plist->next = delete_element(plist->next, value);
-            plist = (*temp);
             return plist;
         }
 
