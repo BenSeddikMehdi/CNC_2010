@@ -58,7 +58,6 @@ list_t* create_linked_list(list_t* plist) {
 /* Question 2 */
 list_t* shift_element(list_t* plist) {
     while (plist != NULL) {
-        //plist = plist->next;
         plist->info.id--;
         plist = plist->next;
     }
@@ -72,14 +71,12 @@ list_t* delete_element(list_t* plist, int value) {
         if (plist->info.id == value) {
             shift_element(plist->next);
             return plist->next;
-        }
-        else {
+        } else {
             plist->next = delete_element(plist->next, value);
             return plist;
         }
-
     } else
-        return NULL;
+        return plist;
 }
 
 /**************/
