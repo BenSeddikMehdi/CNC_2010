@@ -53,4 +53,5 @@ void string_coding(char* str, char codeString[]) {
     }
     codeString[j] = '\0';
 }
+
 #endif //CNC_2010_FIRSTPROBLEM_H
